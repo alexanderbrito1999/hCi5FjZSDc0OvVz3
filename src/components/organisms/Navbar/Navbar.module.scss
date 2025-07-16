@@ -1,0 +1,77 @@
+.navbar {
+  width: 100%;
+  height: 5rem;
+  //   position: sticky;
+  //   top: 0;
+  background: rgba(0, 0, 0, 0.25);
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 0rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      //       font-family: "Obviously";
+    }
+    //     .icon_wrapper {
+    //       width: 2rem;
+    //       height: 2rem;
+    //       color: white;
+    //       padding: 0.2rem;
+    //       svg {
+    //         width: 100%;
+    //         height: 100%;
+    //       }
+    //     }
+    .search_input_wrapper {
+      width: 15rem;
+      height: 2.5rem;
+      background: rgba(147, 147, 147, 0.25);
+//       border-bottom: 1px solid rgba(255, 255, 255, 0.251);
+      display: grid;
+      grid-template-columns: 2.5rem calc(100% - 2.5rem);
+      grid-template-rows: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      .icon_search_container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        svg {
+          width: 100%;
+          height: 100%;
+          color: rgba(255, 255, 255, 0.507);
+        }
+      }
+      .search_input {
+        width: 100%;
+        height: 100%;
+        line-height: 2.5rem;
+        outline: none;
+        border-style: none;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        background: none;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .navbar {
+    .wrapper {
+      padding: 0 1rem;
+    }
+  }
+}

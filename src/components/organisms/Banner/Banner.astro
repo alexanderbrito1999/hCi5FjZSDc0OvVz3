@@ -1,0 +1,77 @@
+---
+import { toAge } from "../../../libs/toAge";
+import { toHour } from "../../../libs/toHour";
+import styles from "./Banner.module.scss";
+interface props {
+  title: any;
+}
+
+const props = Astro.props as props;
+---
+
+<div class={styles.banner}>
+  <picture class={styles.picture_container}>
+    <source
+      media="(max-width: 780px)"
+      srcset={`https://image.tmdb.org/t/p/w780${props.title.backdrop_portrait_path}`}
+    />
+    <source
+      media="(min-width: 781px)"
+      srcset={`https://image.tmdb.org/t/p/w1920${props.title.backdrop_landscape_path}`}
+    />
+    <img
+      class={styles.backdrop_image}
+      src={`https://image.tmdb.org/t/p/w1920${props.title.backdrop_landscape_path}`}
+      alt={""}
+      loading="lazy"
+    />
+  </picture>
+
+  <div class={styles.gradient}></div>
+  <div class={styles.data}>
+    {
+      props.title.logo_path && (
+        <img class={styles.banner_logo} src={`https://image.tmdb.org/t/p/w500${props.title.logo_path}`} alt={""} />
+      )
+    }
+    <h1 class={styles.title}>Ver online: {props.title.title}</h1>
+    <h2 class={styles.tagline}>{props.title.tagline}</h2>
+    <section class={styles.metadata}>
+      <div class={styles.item_metadata}>{new Date(props.title.date).getFullYear()}</div>
+      {
+        props.title.runtime !== 0 && (
+          <div class={styles.item_metadata}>{props.title.runtime === 0 ? "Na" : toHour(props.title.runtime)}</div>
+        )
+      }
+      <div class={styles.item_metadata}>{toAge(props.title.certification_id)}</div>
+      {
+        props.title.vote_average !== 0 && (
+          <div class={styles.item_metadata}>
+            <p class={styles.icon_metadata}>
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 16 16"
+                height="200px"
+                width="200px"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"
+                />
+              </svg>
+            </p>
+            {props.title.vote_average?.toFixed(1)}
+          </div>
+        )
+      }
+      {!props.title.is_hd && <div class={styles.item_metadata}>CAM</div>}
+    </section>
+    <div class={styles.buttons_container}>
+      <a class={styles.button} href={`https://mobaes.pages.dev/browser/title/${props.title.id}`}>Ver ahora</a>
+      <a class={`${styles.button} ${styles.button2}`} href={`https://mobaes.pages.dev`}>VER MÁS</a>
+    </div>
+  </div>
+</div>

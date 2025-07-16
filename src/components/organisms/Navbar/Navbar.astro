@@ -1,0 +1,48 @@
+---
+import styles from "./Navbar.module.scss";
+---
+
+<nav class={styles.navbar}>
+  <div class={styles.wrapper}>
+    <a class={styles.logo} href="/">MOBAES</a>
+    <!-- <a class={styles.icon_wrapper} href="/search">
+      <svg
+        stroke="currentColor"
+        fill="none"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        height="200px"
+        width="200px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </a> -->
+    <!-- <form method="GET" action="/search" class={styles.search_form}>
+      <input type="text" name="search" placeholder="Buscar..." required />
+      <button type="submit">Buscar</button>
+    </form> -->
+    <form method="GET" action="/search" class={styles.search_input_wrapper}>
+      <div class={styles.icon_search_container}>
+        <svg
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="200px"
+          width="200px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <input type="text" name="search" placeholder="Buscar..." required class={styles.search_input} />
+    </form>
+  </div>
+</nav>

@@ -1,0 +1,64 @@
+---
+import styles from "./TitleInformation.module.scss";
+
+interface props {
+  title: any;
+}
+
+const props = Astro.props as props;
+---
+
+<div class={styles.title_information}>
+  {/* // !Overview */}
+  {props.title.overview.length !== 0 && <div class={styles.overview}>{props.title.overview}</div>}
+  {/* // !Information */}
+  <div class={styles.information_grid}>
+    <div class={styles.row}>
+      <section class={styles.row_title}>Título</section>
+      <p class={styles.row_data}>{props.title.original_title}</p>
+    </div>
+    <div class={styles.row}>
+      <section class={styles.row_title}>Fecha</section>
+      <p class={styles.row_data}>{props.title.date.split("T")[0]}</p>
+    </div>
+    <div class={styles.row}>
+      <section class={styles.row_title}>Director</section>
+      <p class={styles.row_data}>{props.title.director}</p>
+    </div>
+    <div class={styles.row}>
+      <section class={styles.row_title}>Géneros</section>
+      <p class={styles.row_data}>{props.title.genres}</p>
+    </div>
+    {
+      props.title.is_movie && (
+        <>
+          <div class={styles.row}>
+            <section class={styles.row_title}>Presupuesto</section>
+            <p class={styles.row_data}>
+              {props.title.budget === 0 ? "-" : new Intl.NumberFormat().format(props.title.budget)}
+            </p>
+          </div>
+          <div class={styles.row}>
+            <section class={styles.row_title}>Ganancias</section>
+            <p class={styles.row_data}>
+              {props.title.revenue === 0 ? "-" : new Intl.NumberFormat().format(props.title.revenue)}
+            </p>
+          </div>
+        </>
+      )
+    }
+    <div class={styles.row}>
+      <section class={styles.row_title}>Paises</section>
+      <p class={styles.row_data}>{props.title.production_countries}</p>
+    </div>
+    <div class={styles.row}>
+      <section class={styles.row_title}>Productoras</section>
+      <p class={styles.row_data}>{props.title.production_companies}</p>
+    </div>
+
+    <div class={styles.row}>
+      <section class={styles.row_title}>Cast</section>
+      <p class={`${styles.row_data} ${styles.truncate}`}>{props.title.cast}</p>
+    </div>
+  </div>
+</div>

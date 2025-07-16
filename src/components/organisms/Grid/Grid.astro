@@ -1,0 +1,130 @@
+---
+import { sanitizeName } from "../../../libs/sanitizeName";
+import { toHour } from "../../../libs/toHour";
+import styles from "./Grid.module.scss";
+interface props {
+  titles: any;
+  label: string;
+}
+
+const props = Astro.props as props;
+const currentPage = Number(props.titles.page) || 1;
+const totalPages = Number(props.titles.total) || 1;
+const searchParams = new URLSearchParams(Astro.url.searchParams);
+
+function getPages() {
+  const pages = [];
+
+  if (totalPages <= 7) {
+    // Pocas páginas, mostrar todas
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    if (currentPage <= 4) {
+      // Cerca del inicio: mostrar 1 a 5, elipsis, última
+      for (let i = 1; i <= 5; i++) pages.push(i);
+      pages.push("...");
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      // Cerca del final: mostrar 1, elipsis, últimas 5
+      pages.push(1);
+      pages.push("...");
+      for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+    } else {
+      // En medio: 1, elipsis, current-1, current, current+1, elipsis, último
+      pages.push(1);
+      pages.push("...");
+      pages.push(currentPage - 1);
+      pages.push(currentPage);
+      pages.push(currentPage + 1);
+      pages.push("...");
+      pages.push(totalPages);
+    }
+  }
+
+  return pages;
+}
+
+// function getPageUrl(p: any) {
+//   return `?page=${p}`;
+// }
+function getPageUrl(p: number) {
+  const params = new URLSearchParams(searchParams);
+  params.set("page", p.toString());
+  return `?${params.toString()}`;
+}
+---
+
+<div class={styles.wrapper}>
+  <div class={styles.top}>
+    <a class={styles.title} href="/recently">{props.label}</a>
+  </div>
+  {props.titles.count === 0 && <div class={styles.no_results}>Sin resultados</div>}
+  <div class={styles.grid}>
+    {
+      props.titles.rows?.map((item: any) => (
+        <a
+          class={styles.item}
+          href={`/titles/${item.id}-${sanitizeName(item.title)}-${new Date(item.date || Date.now()).getFullYear()}`}
+        >
+          <div class={styles.poster}>
+            <div class={styles.container}>
+              <img
+                class={styles.image}
+                src={`https://image.tmdb.org/t/p/w200${item.poster_portrait_path}`}
+                alt="poster"
+                loading="lazy"
+              />
+
+              {!item.is_hd && <div class={styles.is_hd}>CAM</div>}
+            </div>
+          </div>
+          <div class={styles.metadata}>
+            <div class={styles.item_metadata}>{new Date(item.date).getFullYear()}</div>
+            {item.is_movie ? (
+              <div class={styles.item_metadata}>{toHour(item.runtime)}</div>
+            ) : (
+              <div class={styles.item_metadata}>TV</div>
+            )}
+            {/* {item.is_movie && (
+              <div class={styles.vote_average_metadata}>
+                <p class={styles.icon_metadata}>
+                  <img src="/cloud.svg" alt="" />
+                </p>
+                {item.vote_average?.toFixed(1)} GB
+              </div>
+            )} */}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>
+{
+  props.titles.count > 42 ? (
+    <nav class={styles.pagination}>
+      <nav class={styles.nav}>
+        {currentPage > 1 && (
+          <a class={styles.button} href={getPageUrl(currentPage - 1)}>
+            &laquo;
+          </a>
+        )}
+
+        {getPages().map((p) =>
+          typeof p === "number" ? (
+            <a class={`${styles.button} ${p === currentPage ? styles.active : ""}`} href={getPageUrl(p)}>
+              {p}
+            </a>
+          ) : (
+            <span class={styles.ellipsis}>…</span>
+          )
+        )}
+
+        {currentPage < totalPages && (
+          <a class={styles.button} href={getPageUrl(currentPage + 1)}>
+            &raquo;
+          </a>
+        )}
+      </nav>
+    </nav>
+  ) : null
+}

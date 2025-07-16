@@ -1,0 +1,19 @@
+{
+  "name": "moba-client-ssr",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.3.0",
+    "@astrojs/vercel": "^8.2.2",
+    "astro": "^5.11.1"
+  },
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
+}

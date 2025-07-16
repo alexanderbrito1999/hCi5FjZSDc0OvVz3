@@ -1,0 +1,185 @@
+.slideshow {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  margin: auto;
+
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 1rem;
+  border: 1px solid rgba(109, 109, 109, 0.476);
+  //   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  .top {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+    //     background: rgba(0, 0, 0, 0.331);
+    .title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .wrapper_link {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      padding: 0.25rem;
+      svg {
+        width: 100%;
+        height: 100%;
+        color: #ffffffed;
+      }
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 1rem;
+
+    .item {
+      aspect-ratio: 2 / 3.25;
+      width: 100%; /* esto se respeta dentro del grid */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+
+      .poster {
+        width: 100%;
+        height: calc(100% - 2rem);
+        background: rgba(107, 107, 107, 0.333);
+        border: 2px solid transparent;
+        transition: 0.1s;
+        border-radius: 12px;
+        &:hover {
+          transition: 0.1s;
+          border: 2px solid white;
+        }
+        .container {
+          width: 100%;
+          height: 100%;
+          border: 2px solid transparent;
+          border-radius: 10px;
+          overflow: hidden;
+          display: flex;
+          position: relative;
+          .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+          }
+          .is_hd {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background: rgb(255, 255, 255);
+            font-size: 0.9rem;
+            color: #000000ed;
+            font-weight: 500;
+            border-radius: 0.25rem;
+            padding: 0.2rem 0.5rem;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          }
+        }
+      }
+      .metadata {
+        width: 100%;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        // margin-bottom: 1rem;
+        position: relative;
+        padding: 0 0.5rem;
+        .item_metadata {
+          font-size: 0.9rem;
+          color: #d8d8d8ed;
+          font-weight: 500;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .vote_average_metadata {
+          position: absolute;
+          right: 0.5rem;
+          font-size: 0.9rem;
+          color: #d8d8d8ed;
+          //   font-weight: 500;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+
+          font-weight: 700;
+          .icon_metadata {
+            width: 1.2rem;
+            height: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1rem;
+    position: relative;
+    .button_showmore {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: black;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(109, 109, 109, 0.476);
+      transition: 0.1s;
+      &:hover {
+        transition: 0.1s;
+        background: rgb(255, 255, 255);
+        border: 1px solid rgb(255, 255, 255);
+
+        color: black;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 700px) {
+  .slideshow {
+    padding: 1rem;
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+      gap: 0.5rem;
+    }
+  }
+}
